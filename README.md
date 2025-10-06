@@ -112,6 +112,7 @@ const mantle = useMantleAppBridge();
 mantle.showToast('Hello!', 'success');
 mantle.redirect('/some-page');
 mantle.getUser().then(user => console.log(user));
+mantle.getOrganization().then(org => console.log(org));
 mantle.getSession().then(session => console.log(session));
 mantle.authenticatedFetch('/api/data', { method: 'GET' });
 ```
@@ -231,6 +232,16 @@ interface MantleUser {
   role?: string;
 }
 
+interface MantleOrganization {
+  id: string;
+  name: string;
+  customerTags: string[];
+  contactTags: string[];
+  // Add more organization properties as needed
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 interface MantleSession {
   id: string;
   userId: string;
@@ -251,7 +262,8 @@ interface AuthUser {
 interface AuthOrganization {
   id: string;
   name: string;
-  slug?: string;
+  customerTags: string[];
+  contactTags: string[];
 }
 ```
 

@@ -5,7 +5,7 @@ import {
   AuthContextType,
   AuthOrganization,
   AuthUser,
-  MantleSession,
+  MantleOrganization,
   MantleUser,
 } from "../types";
 import { useMantleAppBridge } from "./use-mantle-app-bridge";
@@ -36,32 +36,31 @@ export function useAuth(): AuthContextType {
     []
   );
 
-  // Transform session to organization
+  // Transform MantleOrganization to AuthOrganization format
   const transformOrganization = useCallback(
-    (session: MantleSession | string | null): AuthOrganization | null => {
-      if (!session) return null;
-
-      // If session is a string, we don't have organization info
-      if (typeof session === "string") return null;
+    (mantleOrg: MantleOrganization | null): AuthOrganization | null => {
+      if (!mantleOrg) return null;
 
       return {
-        id: session.organizationId,
-        name: `Organization ${session.organizationId}`, // Default name if not available
+        id: mantleOrg.id,
+        name: mantleOrg.name,
+        customerTags: mantleOrg.customerTags || [],
+        contactTags: mantleOrg.contactTags || [],
       };
     },
     []
   );
 
-  // Fetch user and session data
+  // Fetch user and organization data
   const fetchAuthData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
     try {
-      // Fetch user and session in parallel
-      const [userData, sessionData] = await Promise.all([
+      // Fetch user and organization in parallel
+      const [userData, organizationData] = await Promise.all([
         mantle.getUser(),
-        mantle.getSession(),
+        mantle.getOrganization(),
       ]);
 
       // Transform and set user
@@ -69,7 +68,7 @@ export function useAuth(): AuthContextType {
       setUser(transformedUser);
 
       // Transform and set organization
-      const transformedOrg = transformOrganization(sessionData);
+      const transformedOrg = transformOrganization(organizationData);
       setOrganization(transformedOrg);
     } catch (err) {
       const errorMessage =

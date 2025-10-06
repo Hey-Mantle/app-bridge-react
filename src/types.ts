@@ -13,9 +13,13 @@ export interface MantleAppBridge {
   // User management
   getUser(): Promise<MantleUser | null>;
 
-  // PostMessage-based session and user requests
+  // Organization management
+  getOrganization(): Promise<MantleOrganization | null>;
+
+  // PostMessage-based session, user, and organization requests
   requestSession(): void;
   requestUser(): void;
+  requestOrganization(): void;
 
   // Navigation APIs
   redirect(url: string): void;
@@ -63,6 +67,16 @@ export interface MantleUser {
   role?: string;
 }
 
+export interface MantleOrganization {
+  id: string;
+  name: string;
+  customerTags: string[];
+  contactTags: string[];
+  // Add more organization properties as needed
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 export interface MantleAppBridgeConfig {
   appId: string;
   apiUrl?: string;
@@ -103,7 +117,8 @@ export interface AuthUser {
 export interface AuthOrganization {
   id: string;
   name: string;
-  slug?: string;
+  customerTags: string[];
+  contactTags: string[];
 }
 
 export interface AuthContextType {

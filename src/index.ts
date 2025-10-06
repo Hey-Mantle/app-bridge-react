@@ -10,6 +10,7 @@ export type {
   MantleAppBridgeConfig,
   MantleIdentifyParams,
   MantleIdentifyResponse,
+  MantleOrganization,
   MantleSession,
   MantleUser,
 } from "./types";
