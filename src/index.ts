@@ -36,6 +36,8 @@ export {
 // React hooks
 export { useAuth } from "./hooks/use-auth";
 export { useMantleAppBridge } from "./hooks/use-mantle-app-bridge";
+export { useOrganization } from "./hooks/use-organization";
+export { useUser } from "./hooks/use-user";
 
 // React context providers
 export { AuthProvider, useSharedAuth } from "./contexts/auth-context";
@@ -43,6 +45,9 @@ export {
   MantleAppBridgeProvider,
   useSharedMantleAppBridge,
 } from "./contexts/mantle-app-bridge-context";
+
+// Components
+// AppBridgeScript removed - using simple script tag instead
 
 // Main provider component
 export { AppBridgeProvider } from "./providers/app-bridge-provider";

@@ -6,6 +6,12 @@ export function getMantleAppBridge(): MantleAppBridge | null {
     return null;
   }
 
+  // First check for the global instance (lowercase 'mantle')
+  if ((window as any).mantle) {
+    return (window as any).mantle as MantleAppBridge;
+  }
+
+  // Fallback to constructor (uppercase 'MantleAppBridge')
   if (!window.MantleAppBridge) {
     return null;
   }
@@ -51,6 +57,13 @@ export function waitForMantleAppBridge(
       return;
     }
 
+    // Check for global instance first
+    if ((window as any).mantle) {
+      resolve((window as any).mantle as MantleAppBridge);
+      return;
+    }
+
+    // Check for constructor
     if (window.MantleAppBridge) {
       // Check if MantleAppBridge is a class constructor that needs to be instantiated
       if (
@@ -75,6 +88,14 @@ export function waitForMantleAppBridge(
     const checkInterval = setInterval(() => {
       const elapsed = Date.now() - startTime;
 
+      // Check for global instance first
+      if ((window as any).mantle) {
+        clearInterval(checkInterval);
+        resolve((window as any).mantle as MantleAppBridge);
+        return;
+      }
+
+      // Check for constructor
       if (window.MantleAppBridge) {
         clearInterval(checkInterval);
         // Check if MantleAppBridge is a class constructor that needs to be instantiated

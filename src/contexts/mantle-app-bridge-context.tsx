@@ -1,7 +1,6 @@
 "use client";
 
 import React, { createContext, useContext } from "react";
-import { useMantleAppBridge } from "../hooks/use-mantle-app-bridge";
 import { MantleAppBridge } from "../types";
 
 const MantleAppBridgeContext = createContext<MantleAppBridge | null>(null);
@@ -13,7 +12,10 @@ interface MantleAppBridgeProviderProps {
 export function MantleAppBridgeProvider({
   children,
 }: MantleAppBridgeProviderProps) {
-  const appBridge = useMantleAppBridge();
+  // Simply provide the global mantle instance directly
+  // The parent project is responsible for loading the script
+  const appBridge =
+    typeof window !== "undefined" ? (window as any).mantle : null;
 
   return (
     <MantleAppBridgeContext.Provider value={appBridge}>
@@ -22,9 +24,9 @@ export function MantleAppBridgeProvider({
   );
 }
 
-export function useSharedMantleAppBridge(): MantleAppBridge {
+export function useSharedMantleAppBridge(): MantleAppBridge | null {
   const context = useContext(MantleAppBridgeContext);
-  if (!context) {
+  if (context === undefined) {
     throw new Error(
       "useSharedMantleAppBridge must be used within a MantleAppBridgeProvider"
     );

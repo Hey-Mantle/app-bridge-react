@@ -53,19 +53,20 @@ export function useMantleAppBridge(): MantleAppBridge {
     return serverProxy;
   }
 
-  if (!window.MantleAppBridge) {
-    throw Error(
-      "The MantleAppBridge global is not defined. This likely means the App Bridge script tag was not added correctly to this page"
-    );
+  // Simply return the global mantle instance
+  // The parent project is responsible for loading the script
+  if ((window as any).mantle) {
+    return (window as any).mantle as MantleAppBridge;
   }
 
-  // Handle both instance and constructor cases
-  if (
-    typeof window.MantleAppBridge === "function" &&
-    "prototype" in window.MantleAppBridge
-  ) {
-    return new (window.MantleAppBridge as new () => MantleAppBridge)();
-  }
-
-  return window.MantleAppBridge as MantleAppBridge;
+  // Return a proxy that throws when accessed, but with a more helpful message
+  return new Proxy({} as MantleAppBridge, {
+    get(_, prop) {
+      throw Error(
+        `MantleAppBridge.${String(
+          prop
+        )} is not available. Make sure the App Bridge script is loaded by the parent project.`
+      );
+    },
+  });
 }

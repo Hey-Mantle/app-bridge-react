@@ -87,6 +87,7 @@ export interface MantleAppBridgeConfig {
 declare global {
   interface Window {
     MantleAppBridge?: MantleAppBridge | (new () => MantleAppBridge);
+    mantle?: MantleAppBridge; // The actual global instance created by app-bridge.js
   }
 }
 
@@ -137,5 +138,6 @@ export interface AppBridgeReactConfig {
   appId: string;
   apiKey?: string;
   apiUrl?: string;
+  mantleUrl?: string;
   debug?: boolean;
 }
