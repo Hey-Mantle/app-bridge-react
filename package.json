@@ -10,7 +10,8 @@
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "build-and-publish": "npm install && npm run build && npm publish"
   },
   "keywords": [
     "mantle",
@@ -21,6 +22,10 @@
   ],
   "author": "",
   "license": "MIT",
+  "publishConfig": {
+    "@heymantle:registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0"

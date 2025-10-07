@@ -75,14 +75,7 @@ function MyComponent() {
 
 ### Configuration
 
-```tsx
-interface AppBridgeReactConfig {
-  appId: string;           // Required: Your Mantle app ID
-  apiKey?: string;         // Optional: Your Mantle API key
-  apiUrl?: string;         // Optional: Custom API URL (defaults to Mantle's)
-  debug?: boolean;         // Optional: Enable debug logging
-}
-```
+The `AppBridgeProvider` accepts a config object with your app details.
 
 ### Hooks
 
@@ -91,14 +84,7 @@ interface AppBridgeReactConfig {
 Returns authentication state and user information.
 
 ```tsx
-const {
-  user,              // AuthUser | null
-  organization,      // AuthOrganization | null
-  isAuthenticated,   // boolean
-  isLoading,         // boolean
-  error,             // string | null
-  refresh,           // () => Promise<void>
-} = useAuth();
+const { user, organization, isAuthenticated, isLoading, error, refresh } = useAuth();
 ```
 
 #### `useMantleAppBridge()`
@@ -111,9 +97,9 @@ const mantle = useMantleAppBridge();
 // Use App Bridge methods directly
 mantle.showToast('Hello!', 'success');
 mantle.redirect('/some-page');
-mantle.getUser().then(user => console.log(user));
-mantle.getOrganization().then(org => console.log(org));
-mantle.getSession().then(session => console.log(session));
+mantle.getUser();
+mantle.getOrganization();
+mantle.getSession();
 mantle.authenticatedFetch('/api/data', { method: 'GET' });
 ```
 
@@ -174,19 +160,10 @@ import {
   getAppBridgeConnectionStatus,
 } from '@heymantle/app-bridge-react';
 
-// Get the current App Bridge instance
 const appBridge = getMantleAppBridge();
-
-// Check if running in iframe
 const inIframe = isRunningInIframe();
-
-// Wait for App Bridge to be available
 const bridge = await waitForMantleAppBridge();
-
-// Check if App Bridge is available
 const available = isAppBridgeAvailable();
-
-// Get connection status
 const status = getAppBridgeConnectionStatus();
 ```
 
@@ -199,16 +176,13 @@ import {
   identifyCustomer,
 } from '@heymantle/app-bridge-react';
 
-// Initialize the client
 const client = initializeMantleClient({
   appId: 'your-app-id',
   apiKey: 'your-api-key',
 });
 
-// Get the current client
 const currentClient = getMantleClient();
 
-// Identify a customer
 const result = await identifyCustomer({
   platform: 'mantle',
   platformId: 'user-123',
@@ -216,68 +190,6 @@ const result = await identifyCustomer({
   email: 'john@example.com',
   customFields: { plan: 'premium' },
 });
-```
-
-## Type Definitions
-
-### Core Types
-
-```tsx
-interface MantleUser {
-  id: string;
-  email: string;
-  name: string;
-  organizationId: string;
-  avatar?: string;
-  role?: string;
-}
-
-interface MantleOrganization {
-  id: string;
-  name: string;
-  customerTags: string[];
-  contactTags: string[];
-  // Add more organization properties as needed
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-interface MantleSession {
-  id: string;
-  userId: string;
-  organizationId: string;
-  accessToken: string;
-  expiresAt: string;
-  createdAt: string;
-}
-
-interface AuthUser {
-  id: string;
-  email: string;
-  name: string;
-  avatar?: string;
-  role?: string;
-}
-
-interface AuthOrganization {
-  id: string;
-  name: string;
-  customerTags: string[];
-  contactTags: string[];
-}
-```
-
-## Environment Variables
-
-Set these environment variables in your application:
-
-```bash
-# Required
-NEXT_PUBLIC_MANTLE_APP_ID=your_app_id
-
-# Optional
-MANTLE_APP_API_KEY=your_api_key
-NEXT_PUBLIC_MANTLE_APP_API_URL=https://appapi.heymantle.com/v1
 ```
 
 ## Migration from Existing Code
@@ -300,7 +212,7 @@ const { user, organization, isAuthenticated, isLoading } = useAuth();
 
 // Use App Bridge methods directly
 mantle.showToast('Hello!', 'success');
-mantle.getUser().then(user => console.log(user));
+mantle.getUser();
 ```
 
 ## Development

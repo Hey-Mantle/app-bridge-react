@@ -58,7 +58,12 @@ export async function identifyCustomer(
     if ("apiToken" in response) {
       return { customerApiToken: response.apiToken, success: true };
     } else {
-      return { customerApiToken: null, success: false, error: response };
+      return {
+        customerApiToken: null,
+        success: false,
+        error:
+          typeof response === "string" ? response : JSON.stringify(response),
+      };
     }
   } catch (error) {
     return {
