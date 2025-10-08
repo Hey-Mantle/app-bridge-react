@@ -1,6 +1,6 @@
 {
   "name": "@heymantle/app-bridge-react",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "React hooks and utilities for Mantle App Bridge integration",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
