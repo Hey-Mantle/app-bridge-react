@@ -131,7 +131,7 @@ function MyComponent() {
 Provides authentication state to child components.
 
 ```tsx
-import { AuthProvider, useSharedAuth } from '@heymantle/app-bridge-react';
+import { AuthProvider, useAuth } from '@heymantle/app-bridge-react';
 
 function App() {
   return (
@@ -142,7 +142,7 @@ function App() {
 }
 
 function MyComponent() {
-  const auth = useSharedAuth();
+  const auth = useAuth();
   // Use auth...
 }
 ```
