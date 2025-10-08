@@ -131,8 +131,6 @@ export interface AuthContextType {
   refresh: () => Promise<void>;
 }
 
-// Note: UseMantleAppBridgeReturn interface removed - the main hook now just returns MantleAppBridge directly
-
 // Configuration types
 export interface AppBridgeReactConfig {
   appId: string;

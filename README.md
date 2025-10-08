@@ -43,11 +43,11 @@ function App() {
 ### 2. Use the hooks in your components
 
 ```tsx
-import { useAuth, useMantleAppBridge } from '@heymantle/app-bridge-react';
+import { useAuth, useAppBridge } from '@heymantle/app-bridge-react';
 
 function MyComponent() {
   const { user, organization, isAuthenticated, isLoading } = useAuth();
-  const mantle = useMantleAppBridge();
+  const mantle = useAppBridge();
 
   if (isLoading) return <div>Loading...</div>;
   if (!isAuthenticated) return <div>Please log in</div>;
@@ -87,12 +87,12 @@ Returns authentication state and user information.
 const { user, organization, isAuthenticated, isLoading, error, refresh } = useAuth();
 ```
 
-#### `useMantleAppBridge()`
+#### `useAppBridge()`
 
 Returns the Mantle App Bridge instance for direct API access.
 
 ```tsx
-const mantle = useMantleAppBridge();
+const mantle = useAppBridge();
 
 // Use App Bridge methods directly
 mantle.showToast('Hello!', 'success');
@@ -204,10 +204,10 @@ const {
   session, 
   user, 
   isLoading 
-} = useMantleAppBridge();
+} = useAppBridge();
 
 // After - Simple direct access
-const mantle = useMantleAppBridge();
+const mantle = useAppBridge();
 const { user, organization, isAuthenticated, isLoading } = useAuth();
 
 // Use App Bridge methods directly
