@@ -26,6 +26,16 @@ export interface MantleAppBridge {
   openInNewTab(url: string): void;
   openInNewWindow(url: string, features?: string): void;
 
+  // Shopify App Bridge compatible navigation methods
+  subscribeToRedirect(
+    callback: (redirectData: {
+      path: string;
+      method: string;
+      timestamp: number;
+    }) => void
+  ): void;
+  subscribeToNavigation(callback: (navigationData: any) => void): void;
+
   // Toast notifications
   showToast(message: string, type?: "success" | "error"): void;
 
