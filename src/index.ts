@@ -1,5 +1,8 @@
 // Main exports for @heymantle/app-bridge-react package
 
+// Import custom element type definitions to ensure they're included in the build
+import "./custom-elements";
+
 // Types
 export type {
   MantleAppBridge,
