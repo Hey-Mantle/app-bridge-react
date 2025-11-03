@@ -1,20 +1,17 @@
 // Main exports for @heymantle/app-bridge-react package
 
-// Import custom element type definitions to ensure they're included in the build
-import "./custom-elements";
-
 // Types
 export type {
   MantleAppBridge,
-  MantleOrganization,
-  MantleUser,
   MantleModalManager,
-  MantleSaveBarManager,
   MantleNavMenuManager,
-  MantlePageOptions,
-  MantlePageAction,
-  MantleSaveBarOptions,
   MantleNewWindowOptions,
+  MantleOrganization,
+  MantlePageAction,
+  MantlePageOptions,
+  MantleSaveBarManager,
+  MantleSaveBarOptions,
+  MantleUser,
 } from "./types";
 
 // React hooks
