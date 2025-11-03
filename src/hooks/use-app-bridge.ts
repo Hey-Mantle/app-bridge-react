@@ -3,7 +3,14 @@
 import { useEffect, useState } from "react";
 import { MantleAppBridge } from "../types";
 
-export function useAppBridge() {
+export interface UseAppBridgeReturn {
+  mantle: MantleAppBridge | null;
+  isConnecting: boolean;
+  error: string | null;
+  isReady: boolean;
+}
+
+export function useAppBridge(): UseAppBridgeReturn {
   const [mantle, setMantle] = useState<MantleAppBridge | null>(null);
   const [isConnecting, setIsConnecting] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -11,7 +18,7 @@ export function useAppBridge() {
   useEffect(() => {
     const checkForMantle = () => {
       if (typeof window !== "undefined") {
-        const mantleInstance = (window as any).mantle;
+        const mantleInstance = window.mantle;
         if (mantleInstance) {
           setMantle(mantleInstance);
           setIsConnecting(false);

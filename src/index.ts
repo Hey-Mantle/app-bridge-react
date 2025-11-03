@@ -4,12 +4,19 @@
 export type {
   MantleAppBridge,
   MantleOrganization,
-  MantleSession,
   MantleUser,
+  MantleModalManager,
+  MantleSaveBarManager,
+  MantleNavMenuManager,
+  MantlePageOptions,
+  MantlePageAction,
+  MantleSaveBarOptions,
+  MantleNewWindowOptions,
 } from "./types";
 
 // React hooks
 export { useAppBridge } from "./hooks/use-app-bridge";
+export type { UseAppBridgeReturn } from "./hooks/use-app-bridge";
 export { useAuthenticatedFetch } from "./hooks/use-authenticated-fetch";
 export { useOrganization } from "./hooks/use-organization";
 export { useUser } from "./hooks/use-user";

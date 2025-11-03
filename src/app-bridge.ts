@@ -7,8 +7,8 @@ export function getMantleAppBridge(): MantleAppBridge | null {
   }
 
   // First check for the global instance (lowercase 'mantle')
-  if ((window as any).mantle) {
-    return (window as any).mantle as MantleAppBridge;
+  if (window.mantle) {
+    return window.mantle;
   }
 
   // Fallback to constructor (uppercase 'MantleAppBridge')
@@ -58,8 +58,8 @@ export function waitForMantleAppBridge(
     }
 
     // Check for global instance first
-    if ((window as any).mantle) {
-      resolve((window as any).mantle as MantleAppBridge);
+    if (window.mantle) {
+      resolve(window.mantle);
       return;
     }
 
@@ -89,9 +89,9 @@ export function waitForMantleAppBridge(
       const elapsed = Date.now() - startTime;
 
       // Check for global instance first
-      if ((window as any).mantle) {
+      if (window.mantle) {
         clearInterval(checkInterval);
-        resolve((window as any).mantle as MantleAppBridge);
+        resolve(window.mantle);
         return;
       }
 
@@ -137,7 +137,7 @@ export function getAppBridgeConnectionStatus(): {
 
   return {
     isAvailable: appBridge !== null,
-    isConnected: appBridge?.isConnected ?? false,
+    isConnected: appBridge?.isReady ?? false,
     isInIframe: isRunningInIframe(),
   };
 }
