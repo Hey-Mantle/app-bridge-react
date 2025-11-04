@@ -30,6 +30,12 @@ function MyComponent() {
   if (error) return <div>Error: {error}</div>;
   if (!isReady || !mantle) return <div>App Bridge not ready</div>;
 
+  const handleFetch = async () => {
+    const response = await mantle.authenticatedFetch('/api/some-endpoint');
+    const data = await response.json();
+    console.log(data);
+  };
+
   return (
     <div>
       <h1>Welcome, {user?.name}!</h1>
@@ -37,6 +43,7 @@ function MyComponent() {
       <button onClick={() => mantle.showToast('Hello!', 'success')}>
         Show Toast
       </button>
+      <button onClick={handleFetch}>Fetch Data</button>
     </div>
   );
 }
@@ -48,8 +55,9 @@ function MyComponent() {
 
 - `useAppBridge()` - Returns the App Bridge instance and connection state
 - `useUser()` - Returns user information from the App Bridge
-- `useOrganization()` - Returns organization information from the App Bridge  
-- `useAuthenticatedFetch()` - Returns a fetch function with auth headers
+- `useOrganization()` - Returns organization information from the App Bridge
+
+Note: `authenticatedFetch` is available directly on the `mantle` instance returned from `useAppBridge()` when `isReady` is true.
 
 ### Utilities
 
