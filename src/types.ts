@@ -77,12 +77,25 @@ export interface MantleAppBridge {
   openInNewTab(url: string): void;
   openInNewWindow(url: string, options?: MantleNewWindowOptions): void;
   subscribeToRedirect(
-    callback: (data: {
-      path: string;
-      method: string;
-      fullUrl?: string;
-    }) => void
+    callback: (data: { path: string; method: string; fullUrl?: string }) => void
   ): void;
+
+  // ============================================
+  // Content Size Management
+  // ============================================
+  setContentSize(options: {
+    height?: number;
+    width?: number;
+    componentId?: string;
+  }): Promise<void>;
+  observeContentSize(
+    elementOrSelector: HTMLElement | string,
+    options?: {
+      componentId?: string;
+      enabled?: boolean;
+      debounceMs?: number;
+    }
+  ): () => void;
 
   // ============================================
   // UI State Management
@@ -169,10 +182,7 @@ export interface MantleAppBridge {
    * @param options - Standard fetch options (method, body, headers, etc.)
    * @returns Promise that resolves to a Response object
    */
-  authenticatedFetch(
-    url: string,
-    options?: RequestInit
-  ): Promise<Response>;
+  authenticatedFetch(url: string, options?: RequestInit): Promise<Response>;
 
   // ============================================
   // Event System
