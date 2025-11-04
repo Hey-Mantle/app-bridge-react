@@ -47,7 +47,8 @@ export interface MantleAppBridge {
   // ============================================
   // Read-only Properties (getters)
   // ============================================
-  readonly isReady: boolean;
+  readonly isReady: boolean; // True when instance exists and can receive messages
+  readonly initialized: boolean; // True only after receiving setup message from parent
   readonly ready: boolean; // Alias for isReady
   readonly currentSession: string | null; // Session token (JWT string)
   readonly currentUser: MantleUser | null;

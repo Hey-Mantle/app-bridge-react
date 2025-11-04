@@ -8,11 +8,8 @@ export function useAuthenticatedFetch() {
 
   const authenticatedFetch = useCallback(
     async (url: string, options: RequestInit = {}) => {
-      if (!mantle) {
-        throw new Error("Mantle App Bridge not available");
-      }
-
-      if (!isReady) {
+      // isReady guarantees mantle is available and initialized
+      if (!isReady || !mantle) {
         throw new Error("Mantle App Bridge not ready");
       }
 
@@ -22,7 +19,7 @@ export function useAuthenticatedFetch() {
   );
 
   return {
-    authenticatedFetch,
+    authenticatedFetch: isReady && mantle ? authenticatedFetch : null,
     isReady,
     mantle,
   };
